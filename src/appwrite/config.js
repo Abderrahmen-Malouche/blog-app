@@ -122,12 +122,21 @@ export class Service {
   }
   async getFilePreview(fileId) {
     try {
-      return await this.bucket.getFilePreview(conf.appwriteBucketId, fileId);
+      return await this.bucket.getFilePreview(conf.appwriteBucketId, fileId).href;
     } catch (e) {
       console.log("Error in getFilePreview", e);
       throw e;
     }
   }
+  async getPosts(){
+    try{
+      return await this.database.listDocuments(conf.appwriteBucketId,conf.appwriteCollectionId);
+    }
+    catch(e){
+      console.log("Error in getPosts",e);
+      throw e;
+    }
+  }
 }
-const service = new Service();
-export default service;
+const appwriteService = new Service();
+export default appwriteService;
